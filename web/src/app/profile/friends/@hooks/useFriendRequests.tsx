@@ -20,8 +20,8 @@ export default function useFriendRequests() {
     const {show} = useAppNotifications()
     const {register, handleSubmit} = useForm<SendFriendRequest>()
 
-    function getAllTakenFriendRequests() {
-        if (!friendRequests) _api.requests.user.friends.getAllTakenFriendsRequests({
+    function fetchAllTakenFriendRequests() {
+         _api.requests.user.friends.getAllTakenFriendsRequests({
             alertCallback: show,
             reduxCallback: (friendRequests: FriendRequest[]) => {
                 dispatch(_reduxCallback.user.friends.setTakenFriendRequests(friendRequests))
@@ -44,7 +44,7 @@ export default function useFriendRequests() {
     }
 
     return {
-        mapFriendRequests, friendRequests, getAllTakenFriendRequests,
+        mapFriendRequests, friendRequests, fetchAllTakenFriendRequests,
         form: {
             register, handleSubmit, onSubmit: handleSubmitFriendRequest
         }

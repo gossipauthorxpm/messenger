@@ -2,6 +2,7 @@ package com.xpm.messanger.entity;
 
 import com.xpm.messanger.common.chat.IChat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.List;
@@ -18,13 +19,13 @@ public class GroupChat implements IChat {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global-id-sequence")
     @SequenceGenerator(name = "global-id-sequence", sequenceName = "global_id_sequence", allocationSize = 1)
     private Long id;
-
+    @NotBlank
+    private String name;
     @ManyToOne
     private User creator;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "group_chat_id")
     private List<Message> messages;
-
     @OneToMany
     private List<User> users;
 
@@ -53,8 +54,19 @@ public class GroupChat implements IChat {
     @Override
     public List<User> getUsersChat() {
         List<User> allUsersChat = this.users;
+        if(allUsersChat == null) {return null;}
         allUsersChat.add(this.creator);
         return allUsersChat;
+    }
+
+    @Override
+    public Boolean isGroup() {
+        return true;
+    }
+
+    @Override
+    public String getNameChat() {
+        return this.name;
     }
 
     @Override

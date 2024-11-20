@@ -14,13 +14,13 @@ export default function useFriends() {
         if (state.user.user) return state.user.user.friends;
     });
 
-    function getAllFriends() {
-        if(!friends) _api.requests.user.friends.getAllFriendsCurrentUser({
-            alertCallback: show,
-            reduxCallback: users => {
-                dispatch(_reduxCallback.user.friends.setUserFriends(users));
-            }
-        })
+    function fetchAllFriends() {
+            _api.requests.user.friends.getAllFriendsCurrentUser({
+                alertCallback: show,
+                reduxCallback: users => {
+                    dispatch(_reduxCallback.user.friends.setUserFriends(users));
+                }
+            })
     }
 
     function mapFriends() {
@@ -28,5 +28,5 @@ export default function useFriends() {
         else return <Typography>Friends exists</Typography>
     }
 
-    return {friends, getAllFriends, mapFriends};
+    return {friends, fetchAllFriends, mapFriends};
 }

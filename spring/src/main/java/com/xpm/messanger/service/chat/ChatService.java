@@ -2,10 +2,12 @@ package com.xpm.messanger.service.chat;
 
 import com.xpm.messanger.common.chat.ChatType;
 import com.xpm.messanger.common.chat.IChat;
+import com.xpm.messanger.dto.chat.ShowChatDto;
 import com.xpm.messanger.dto.chat.ShowMessage;
 import com.xpm.messanger.entity.GroupChat;
 import com.xpm.messanger.entity.SingleChat;
 import com.xpm.messanger.exceptions.ServiceException;
+import com.xpm.messanger.mapper.ChatMapper;
 import com.xpm.messanger.mapper.MessageMapper;
 import com.xpm.messanger.repository.GroupChatRepository;
 import com.xpm.messanger.repository.SingleChatRepository;
@@ -15,8 +17,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -25,6 +26,7 @@ public class ChatService {
     private GroupChatRepository groupChatRepository;
     private SingleChatRepository singleChatRepository;
     private MessageMapper messageMapper;
+    private ChatMapper chatMapper;
 
     /**
      * Retrieves chat by id. Select from all chat types and return their interface
@@ -38,10 +40,10 @@ public class ChatService {
         Optional<GroupChat> groupChat = groupChatRepository.findById(chatId);
         Optional<SingleChat> singleChat = singleChatRepository.findById(chatId);
 
-        if(singleChat.isPresent()) {
+        if (singleChat.isPresent()) {
             chat = singleChat.get();
         }
-        if(groupChat.isPresent()) {
+        if (groupChat.isPresent()) {
             chat = groupChat.get();
         }
 
@@ -54,11 +56,11 @@ public class ChatService {
 
     @Transactional
     public void deleteChatById(Long chatId, ChatType chatType) {
-        if(chatType == ChatType.SINGLE) {
+        if (chatType == ChatType.SINGLE) {
             Optional<SingleChat> singleChat = singleChatRepository.findById(chatId);
             singleChat.ifPresent(chat -> this.singleChatRepository.delete(chat));
         }
-        if(chatType == ChatType.GROUP) {
+        if (chatType == ChatType.GROUP) {
             Optional<GroupChat> groupChat = groupChatRepository.findById(chatId);
             groupChat.ifPresent(chat -> this.groupChatRepository.delete(chat));
         }
@@ -72,10 +74,10 @@ public class ChatService {
 
     @Transactional
     public void updateChat(IChat chat) {
-        if(chat instanceof SingleChat) {
+        if (chat instanceof SingleChat) {
             this.singleChatRepository.save((SingleChat) chat);
         }
-        if(chat instanceof GroupChat) {
+        if (chat instanceof GroupChat) {
             this.groupChatRepository.save((GroupChat) chat);
         }
     }
@@ -84,7 +86,7 @@ public class ChatService {
      * Retrieves chat by id and chat type, needed for internal
      * chat selection from the controller executing the request
      *
-     * @param chatId {@link Long} id chat
+     * @param chatId   {@link Long} id chat
      * @param chatType {@link ChatType} type chat
      * @return {@link IChat}
      */
@@ -93,10 +95,10 @@ public class ChatService {
 
         Optional<GroupChat> groupChat = groupChatRepository.findById(chatId);
         Optional<SingleChat> singleChat = singleChatRepository.findById(chatId);
-        if(chatType == ChatType.SINGLE && singleChat.isPresent()) {
+        if (chatType == ChatType.SINGLE && singleChat.isPresent()) {
             chat = singleChat.get();
         }
-        if(chatType == ChatType.GROUP && groupChat.isPresent()) {
+        if (chatType == ChatType.GROUP && groupChat.isPresent()) {
             chat = groupChat.get();
         }
 
@@ -106,4 +108,12 @@ public class ChatService {
         return chat;
     }
 
+    public List<ShowChatDto> getAllChats() {
+        Iterable<GroupChat> groupChats = this.groupChatRepository.findAll();
+        Iterable<SingleChat> singleChats = this.singleChatRepository.findAll();
+        List<IChat> chats = new ArrayList<>();
+        chats.addAll((Collection<? extends IChat>) groupChats);
+        chats.addAll((Collection<? extends IChat>) singleChats);
+        return chats.stream().map(this.chatMapper::toShowChatDto).toList();
+    }
 }

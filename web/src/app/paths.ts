@@ -1,6 +1,6 @@
 export type Path = {
-    path: string;
-    name: string;
+    path: string | ((id: number) => string);
+    name: string | ((id: number) => string);
 }
 
 type Paths = {
@@ -17,6 +17,9 @@ type Paths = {
         },
         messenger: {
             vars: Path;
+            chat: {
+                vars: Path
+            }
         }
     }
 }
@@ -49,6 +52,12 @@ export const _paths: Paths = {
             vars: {
                 path: "/messenger",
                 name: "Messenger",
+            },
+            chat: {
+                vars: {
+                    path: (idChat: number) => `/messenger/chat/${idChat}`,
+                    name: (idChat: number) => `MessengerChat-${idChat}`
+                }
             }
         }
     }

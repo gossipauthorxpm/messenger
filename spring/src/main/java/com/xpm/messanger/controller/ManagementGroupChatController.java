@@ -22,16 +22,10 @@ public class ManagementGroupChatController {
     private GroupChatService groupChatService;
     private ChatService chatService;
 
-    @Operation(summary = "Получить сообщения из чата")
-    @GetMapping("")
-    public HttpResponse getMessagesFromGroupChat(@PathParam("idChat") Long idChat) {
-        return new HttpResponse("Success!", this.chatService.getAllMessagesFromChat(idChat, ChatType.GROUP));
-    }
-
     @Operation(summary = "Создать чат")
     @PostMapping("")
-    public HttpResponse createGroupChat() {
-        return new HttpResponse("Group chat is created. Id group chat returns!", this.groupChatService.createGroupChat());
+    public HttpResponse createGroupChat(@PathParam("nameChat") String nameChat) {
+        return new HttpResponse("Group chat is created. Id group chat returns!", this.groupChatService.createGroupChat(nameChat));
     }
 
     @Operation(summary = "Удалить чат")

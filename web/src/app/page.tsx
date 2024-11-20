@@ -1,11 +1,20 @@
 "use client"
 
 import * as React from 'react';
+import {useRouter} from "next/navigation";
+import {_paths} from "@/app/paths";
+import useCurrentUser from "@/app/@hooks/useCurrentUser";
+import {useEffect} from "react";
 
 export default function Home() {
-  return (
-    <>
+  const router = useRouter();
+  const currentUser = useCurrentUser();
 
-    </>
-  );
+  useEffect(() => {
+    if(currentUser) router.push(_paths.root.messenger.vars.path)
+  }, [currentUser]);
+
+  return <>
+
+  </>
 }

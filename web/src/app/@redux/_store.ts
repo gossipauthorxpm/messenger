@@ -11,6 +11,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {_jwtSlice, _logout, _setJwt} from "@/app/@redux/slices/_jwtSlice";
 import {_deleteFriendRequest, _friendRequests, _setTakenFriendRequests} from "@/app/@redux/slices/_friendRequests";
+import {_chatSlice, _saveMessageChat, _setChats, _updateMessagesChat} from "@/app/@redux/slices/_chatsSlice";
 
 
 export const _store = configureStore({
@@ -18,6 +19,7 @@ export const _store = configureStore({
         user: _userSlice.reducer,
         jwt: _jwtSlice.reducer,
         friendRequests: _friendRequests.reducer,
+        chats: _chatSlice.reducer
     },
 })
 
@@ -48,5 +50,10 @@ export const _reduxCallback = {
     jwt: {
         setJwt: _setJwt,
         logout: _logout
+    },
+    chats: {
+        setChats: _setChats,
+        updateMessagesChat: _updateMessagesChat,
+        saveMessageChat: _saveMessageChat,
     }
 }

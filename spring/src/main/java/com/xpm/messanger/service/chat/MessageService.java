@@ -2,10 +2,12 @@ package com.xpm.messanger.service.chat;
 
 import com.xpm.messanger.common.chat.IChat;
 import com.xpm.messanger.dto.chat.CreateMessageDto;
+import com.xpm.messanger.dto.chat.ShowMessage;
 import com.xpm.messanger.entity.Message;
 import com.xpm.messanger.entity.User;
 import com.xpm.messanger.exceptions.ServiceException;
 import com.xpm.messanger.mapper.ChatMapper;
+import com.xpm.messanger.mapper.MessageMapper;
 import com.xpm.messanger.repository.MessageRepository;
 import com.xpm.messanger.service.UserService;
 import jakarta.transaction.Transactional;
@@ -24,6 +26,7 @@ public class MessageService {
     private ChatService chatService;
     private UserService userService;
     private ChatMapper chatMapper;
+    private MessageMapper messageMapper;
 
     public @NotNull Message getMessageById(Long id) {
         Optional<Message> message = messageRepository.findById(id);
@@ -32,15 +35,16 @@ public class MessageService {
         return message.get();
     }
 
-    public void sendMessageToChat(Long idChat, CreateMessageDto messageDto) {
+    public ShowMessage sendMessageToChat(Long idChat, CreateMessageDto messageDto) {
         IChat chat = this.chatService.getAnotherChatById(idChat);
         User currentUser = this.userService.getCurrentUser();
         Message message = new Message()
                 .withSender(currentUser)
                 .withContent(messageDto.getContent());
-        this.messageRepository.save(message);
+        Message sendedMessage = this.messageRepository.save(message);
         chat.sendMessage(message);
         this.chatService.updateChat(chat);
+        return this.messageMapper.toShowMessage(sendedMessage);
     }
 
     @Transactional

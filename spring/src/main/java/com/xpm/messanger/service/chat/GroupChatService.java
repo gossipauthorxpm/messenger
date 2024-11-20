@@ -1,9 +1,12 @@
 package com.xpm.messanger.service.chat;
 
+import com.xpm.messanger.common.chat.IChat;
+import com.xpm.messanger.dto.chat.ShowChatDto;
 import com.xpm.messanger.entity.GroupChat;
 import com.xpm.messanger.entity.Message;
 import com.xpm.messanger.entity.User;
 import com.xpm.messanger.exceptions.ServiceException;
+import com.xpm.messanger.mapper.ChatMapper;
 import com.xpm.messanger.repository.GroupChatRepository;
 import com.xpm.messanger.service.UserService;
 import jakarta.transaction.Transactional;
@@ -21,13 +24,13 @@ public class GroupChatService {
     private GroupChatRepository groupChatRepository;
     private UserService userService;
     private MessageService messageService;
+    private ChatMapper chatMapper;
 
     @Transactional
-    public Long createGroupChat() {
+    public ShowChatDto createGroupChat(String nameChat) {
         User currentUser = userService.getCurrentUser();
-        GroupChat groupChat = new GroupChat().withCreator(currentUser);
-        GroupChat createdGroupChat = this.groupChatRepository.save(groupChat);
-        return createdGroupChat.getId();
+        GroupChat groupChat = new GroupChat().withCreator(currentUser).withName(nameChat);
+        return this.chatMapper.toShowChatDto(this.groupChatRepository.save(groupChat));
     }
 
     @Transactional
