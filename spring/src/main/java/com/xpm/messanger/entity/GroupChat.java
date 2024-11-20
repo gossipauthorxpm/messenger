@@ -58,6 +58,11 @@ public class GroupChat implements IChat {
     }
 
     @Override
+    public Boolean isGroup() {
+        return true;
+    }
+
+    @Override
     public void sendMessage(Message message) {
         this.messages.add(message);
     }

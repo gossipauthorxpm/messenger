@@ -23,9 +23,9 @@ public class SingleChat implements IChat {
     private List<Message> messages;
 
     @ManyToOne
-    private User firstSender;
+    private User sender;
     @ManyToOne
-    private User secondSender;
+    private User recipient;
 
 
     @Override
@@ -35,7 +35,17 @@ public class SingleChat implements IChat {
 
     @Override
     public List<User> getUsersChat() {
-        return List.of(this.firstSender, this.secondSender);
+        return List.of(this.sender, this.recipient);
+    }
+
+    @Override
+    public User getCreator() {
+        return null;
+    }
+
+    @Override
+    public Boolean isGroup() {
+        return false;
     }
 
     @Override

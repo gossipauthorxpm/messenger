@@ -12,6 +12,7 @@ import _getAllTakenFriendsRequests from "@/app/@axios/api/user/friends/_getAllTa
 import _sendFriendRequest from "@/app/@axios/api/user/friends/_sendFriendRequest";
 import _declineFriendRequest from "@/app/@axios/api/user/friends/_declineFriendRequest";
 import _acceptFriendRequest from "@/app/@axios/api/user/friends/_acceptFriendRequest";
+import _getAllChats from "@/app/@axios/api/messenger/_getAllChats";
 
 
 export const _WEBSERVER = process.env.NEXT_PUBLIC_BACKEND_SERVER;
@@ -73,6 +74,14 @@ export const _api = {
                 sendFriendRequest: _sendFriendRequest,
                 declineFriendRequest: _declineFriendRequest,
                 acceptFriendRequest: _acceptFriendRequest,
+            }
+        },
+        messenger: {
+            chat: {
+                getAllChats: _getAllChats
+            },
+            messages: {
+
             }
         }
     }

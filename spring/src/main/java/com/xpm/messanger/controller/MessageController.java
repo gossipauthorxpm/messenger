@@ -2,6 +2,7 @@ package com.xpm.messanger.controller;
 
 import com.xpm.messanger.dto.chat.CreateMessageDto;
 import com.xpm.messanger.http.HttpResponse;
+import com.xpm.messanger.service.chat.ChatService;
 import com.xpm.messanger.service.chat.MessageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class MessageController {
 
     private final MessageService messageService;
+    private final ChatService chatService;
 
     @Operation(summary = "Отправить сообщение")
     @PostMapping("/{chatId}")
@@ -38,6 +40,12 @@ public class MessageController {
     public HttpResponse deleteMessage(@PathParam("idMessage") Long idMessage){
         this.messageService.deleteMessage(idMessage);
         return new HttpResponse("Message delete successfully!");
+    }
+
+    @Operation(summary = "Получить чаты")
+    @GetMapping
+    public HttpResponse getSingleChats(){
+        return new HttpResponse("Success get all chats", this.chatService.getAllChats());
     }
 
 }

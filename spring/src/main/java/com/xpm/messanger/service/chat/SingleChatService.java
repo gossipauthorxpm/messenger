@@ -30,8 +30,8 @@ public class SingleChatService {
         SingleChat singleChatEntity = new SingleChat();
         SingleChat createdSingleChat = this.singleChatRepository.save(
                 singleChatEntity
-                .withFirstSender(currentUser)
-                .withSecondSender(reciverUser)
+                .withSender(currentUser)
+                .withRecipient(reciverUser)
         );
 
         return createdSingleChat.getId();

@@ -19,7 +19,6 @@ export default function ProfileLayout({
 
     useEffect(() => {
         currentPage()
-        console.log(namePath)
     }, [namePath]);
 
     if (namePath === _paths.root.profile.vars.name) return <Loading/>
