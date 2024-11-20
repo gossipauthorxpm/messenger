@@ -1,0 +1,26 @@
+spring:
+  config:
+    import: optional:file:spring/.env[.properties]
+  application:
+    name: messenger
+  datasource:
+    url: jdbc:postgresql://localhost:5432/messenger
+    username: xpm
+    password: 1896748249
+  jpa:
+    hibernate:
+      ddl-auto: update
+#    show-sql: true
+springdoc:
+  swagger-ui:
+    path: /api/swagger/
+    disable-swagger-default-url: true
+  api-docs:
+    path: /api/swagger/docs
+token:
+  signing:
+    key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
+
+cors:
+  #name: http://localhost:8000
+  name: ${CORS_SERVER}
