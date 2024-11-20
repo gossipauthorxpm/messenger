@@ -3,8 +3,9 @@ import {Message} from "@/app/@redux/@types/chat/Message";
 
 export interface Chat {
     id: number;
-    messages: Message[];
+    messages?: Message[];
     usersChat: User[];
     creator: User | null;
     isGroup: boolean;
+    chatName: string;
 }

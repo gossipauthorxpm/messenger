@@ -16,7 +16,7 @@ public interface IChat {
     Long getId();
     User getCreator();
     Boolean isGroup();
-
+    String getNameChat();
     void sendMessage(Message message);
     void deleteMessage(Message message);
 

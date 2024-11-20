@@ -1,5 +1,6 @@
 package com.xpm.messanger.controller;
 
+import com.xpm.messanger.common.chat.ChatType;
 import com.xpm.messanger.dto.chat.CreateMessageDto;
 import com.xpm.messanger.http.HttpResponse;
 import com.xpm.messanger.service.chat.ChatService;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @CrossOrigin("${cors.name}")
 @RestController
-@RequestMapping("/api/messenger/chat")
+@RequestMapping("/api/messenger")
 @Tag(name = "Сообщения в чате", description = "Управление сообщениями в чате")
 public class MessageController {
 
@@ -25,8 +26,7 @@ public class MessageController {
     @Operation(summary = "Отправить сообщение")
     @PostMapping("/{chatId}")
     public HttpResponse sendMessage(@PathVariable("chatId") Long idChat, @RequestBody CreateMessageDto messageDto) {
-        this.messageService.sendMessageToChat(idChat, messageDto);
-        return new HttpResponse("Message sent successfully!");
+        return new HttpResponse("Message sent successfully!", this.messageService.sendMessageToChat(idChat, messageDto));
     }
 
     @Operation(summary = "Изменить сообщение")
@@ -43,9 +43,14 @@ public class MessageController {
     }
 
     @Operation(summary = "Получить чаты")
-    @GetMapping
+    @GetMapping("/chats")
     public HttpResponse getSingleChats(){
         return new HttpResponse("Success get all chats", this.chatService.getAllChats());
     }
 
+    @Operation(summary = "Получить сообщения из чата")
+    @GetMapping("/chats/{idChat}")
+    public HttpResponse getMessagesFromGroupChat(@PathVariable("idChat") Long idChat, @PathParam("typeChat") ChatType typeChat) {
+        return new HttpResponse("Success fetch all messages from chat!", this.chatService.getAllMessagesFromChat(idChat, typeChat));
+    }
 }

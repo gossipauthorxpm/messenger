@@ -17,9 +17,9 @@ import org.mapstruct.ReportingPolicy;
 public interface ChatMapper {
 
     @Mapping(target = "usersChat", source = "usersChat")
-    @Mapping(target = "messages", source = "allMessages")
     @Mapping(target = "id", source = "id")
     @Mapping(target = "isGroup", source = "group")
     @Mapping(target = "creator", source = "creator")
+    @Mapping(target = "chatName", source = "nameChat")
     ShowChatDto toShowChatDto(IChat chat);
 }

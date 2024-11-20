@@ -21,12 +21,6 @@ public class ManagementSingleChatController {
     private SingleChatService singleChatService;
     private ChatService chatService;
 
-    @Operation(summary = "Получить сообщения из чата")
-    @GetMapping("")
-    public HttpResponse getMessagesFromSingleChat(@PathParam("idChat") Long idChat){
-         return new HttpResponse("Success!", this.chatService.getAllMessagesFromChat(idChat, ChatType.SINGLE));
-    }
-
     @Operation(summary = "Создать чат")
     @PostMapping("")
     public HttpResponse createChat(@PathParam("receiverLogin") String receiverLogin){

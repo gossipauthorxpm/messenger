@@ -49,6 +49,11 @@ public class SingleChat implements IChat {
     }
 
     @Override
+    public String getNameChat() {
+        return null;
+    }
+
+    @Override
     public void sendMessage(Message message) {
         this.messages.add(message);
     }

@@ -12,10 +12,7 @@ export default function useRegister() {
 
     // ! Auth in system !
     const onSubmit: SubmitHandler<RegisterRequestType> = (data: RegisterRequestType) => {
-
-        _api.requests.auth.register(data, {alertCallback: show}).then(result => {
-
-        })
+        _api.requests.auth.register(data, {alertCallback: show})
     }
 
     return {register, handleSubmit, onSubmit, errors}

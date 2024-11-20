@@ -1,3 +1,4 @@
+"use client"
 import React, { FunctionComponent } from 'react';
 import {Avatar, Stack, Typography} from "@mui/material";
 import Button from "@mui/material/Button";

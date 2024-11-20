@@ -1,8 +1,10 @@
+"use client"
 import React, {FunctionComponent} from 'react';
 import {FormControl, Input, InputAdornment, Stack, Tooltip} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import {GroupAdd} from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
+
 import Box from "@mui/material/Box";
 
 interface OwnProps {}

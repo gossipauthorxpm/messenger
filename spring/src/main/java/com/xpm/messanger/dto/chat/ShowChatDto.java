@@ -12,8 +12,8 @@ import java.util.List;
 @Setter
 public class ShowChatDto {
     private Long id;
-    private List<ShowMessage> messages;
     private List<ShowUserDto> usersChat;
     private Boolean isGroup;
     private ShowUserDto creator;
+    private String chatName;
 }
