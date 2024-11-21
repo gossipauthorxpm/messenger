@@ -34,6 +34,11 @@ public class SingleChat implements IChat {
     }
 
     @Override
+    public void setAllMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    @Override
     public List<User> getUsersChat() {
         return List.of(this.sender, this.recipient);
     }

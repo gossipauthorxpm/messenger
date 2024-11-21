@@ -8,6 +8,7 @@ import ChatButton from "@/app/messenger/@components/ChatButton";
 import React from "react";
 import useCurrentUser from "@/app/@hooks/useCurrentUser";
 import fetchSingleChatName from "@/app/messenger/@hooks/fetchSingleChatName";
+import {useSelectedChatDetails} from "@/app/messenger/@hooks/useSelectedChatDetails";
 
 export default function useChats() {
     const currentUser = useCurrentUser()

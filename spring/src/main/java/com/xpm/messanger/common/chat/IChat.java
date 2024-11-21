@@ -12,6 +12,7 @@ import java.util.List;
 public interface IChat {
     @JsonIgnore
     List<Message> getAllMessages();
+    void setAllMessages(List<Message> messages);
     List<User> getUsersChat();
     Long getId();
     User getCreator();

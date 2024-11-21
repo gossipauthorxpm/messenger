@@ -4,7 +4,6 @@ import {_auth} from "@/app/@axios/api/auth/_auth";
 import {_getUserInfo} from "@/app/@axios/api/user/_getUserInfo";
 import {_cookies} from "@/app/@axios/_cookies";
 import {_register} from "@/app/@axios/api/auth/_register";
-import {_updateUser} from "@/app/@redux/slices/_userSlice";
 import {_updateUserInfo} from "@/app/@axios/api/user/_updateUserInfo";
 import _getAllFriendsCurrentUser from "@/app/@axios/api/user/friends/_getAllFriendsCurrentUser";
 import _deleteUserFromFriends from "@/app/@axios/api/user/friends/_deleteUserFromFriends";
@@ -15,6 +14,14 @@ import _acceptFriendRequest from "@/app/@axios/api/user/friends/_acceptFriendReq
 import _getAllChats from "@/app/@axios/api/messenger/_getAllChats";
 import _getAllMessagesFromChat from "@/app/@axios/api/messenger/_getAllMessagesFromChat";
 import _sendMessageChat from "@/app/@axios/api/messenger/_sendMessage";
+import _readMessage from "@/app/@axios/api/messenger/_readMessage";
+import _createSingleChat from "@/app/@axios/api/messenger/singleChat/_createSingleChat";
+import _deleteSingleChat from "@/app/@axios/api/messenger/singleChat/_deleteSingleChat";
+import _createGroupChat from "@/app/@axios/api/messenger/groupChats/_createGroupChat";
+import _deleteGroupChat from "@/app/@axios/api/messenger/groupChats/_deleteGroupChat";
+import _addUserToGroupChat from "@/app/@axios/api/messenger/groupChats/_addUserToGroupChat";
+import _deleteUserFromGroupChat from "@/app/@axios/api/messenger/groupChats/_deleteUserFromGroupChat";
+import _deleteMessageFromGroupChat from "@/app/@axios/api/messenger/groupChats/_deleteMessageFromGroupChat";
 
 
 export const _WEBSERVER = process.env.NEXT_PUBLIC_BACKEND_SERVER;
@@ -82,7 +89,19 @@ export const _api = {
             getAllChats: _getAllChats,
             chat: {
                 getAllMessagesChat: _getAllMessagesFromChat,
-                sendMessage: _sendMessageChat
+                sendMessage: _sendMessageChat,
+                readMessage: _readMessage,
+                single: {
+                    create: _createSingleChat,
+                    delete: _deleteSingleChat,
+                },
+                group: {
+                    create: _createGroupChat,
+                    delete: _deleteGroupChat,
+                    addUser: _addUserToGroupChat,
+                    deleteUser: _deleteUserFromGroupChat,
+                    deleteMessage: _deleteMessageFromGroupChat,
+                }
             },
         }
     }

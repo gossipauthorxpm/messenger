@@ -13,11 +13,14 @@ export default function useSelectedChat() {
     const {show} = useAppNotifications()
     const dispatch = useAppDispatch()
 
-
     let selectedChat: Chat | null = null
     if (chats) chats.forEach((chat: Chat) => {
         if (chat.id === idChat) selectedChat = chat
     })
+
+    const getSelectedChat = () => {
+      return selectedChat
+    }
 
     const fetchMessagesChat = (chat: Chat) => {
         if (!chat.messages) {
@@ -34,6 +37,6 @@ export default function useSelectedChat() {
     }
 
 
-    return {selectedChat, fetchMessagesChat}
+    return {getSelectedChat, fetchMessagesChat}
 
 }

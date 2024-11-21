@@ -1,8 +1,6 @@
 import {Chat} from "@/app/@redux/@types/chat/Chat";
 import useCurrentUser from "@/app/@hooks/useCurrentUser";
 import {Message} from "@/app/@redux/@types/chat/Message";
-import UserMessage from "@/app/messenger/@components/UserMessage";
-import IncomeMessage from "@/app/messenger/@components/IncomeMessage";
 import MessageComponent from "@/app/messenger/@components/MessageComponent";
 
 export default function useMessages(chat: Chat | null) {

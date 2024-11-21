@@ -58,5 +58,12 @@ public class MessageService {
         this.messageRepository.deleteById(message.getId());
     }
 
+    @Transactional
+    public void readMessage(Long idMessage) {
+        Message message = this.getMessageById(idMessage);
+        message.setRead(true);
+        this.messageRepository.save(message);
+    }
+
 
 }
