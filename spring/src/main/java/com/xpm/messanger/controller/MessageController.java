@@ -31,20 +31,27 @@ public class MessageController {
 
     @Operation(summary = "Изменить сообщение")
     @PutMapping("")
-    public void updateMessage(@PathParam("idMessage") Long idChat){
+    public void updateMessage(@PathParam("idMessage") Long idMessage) {
 
+    }
+
+    @Operation(summary = "Прочитать сообщение")
+    @PutMapping("/read")
+    public HttpResponse readMessage(@PathParam("idMessage") Long idMessage) {
+        this.messageService.readMessage(idMessage);
+        return new HttpResponse("Success read message");
     }
 
     @Operation(summary = "Удалить сообщение")
     @DeleteMapping("")
-    public HttpResponse deleteMessage(@PathParam("idMessage") Long idMessage){
+    public HttpResponse deleteMessage(@PathParam("idMessage") Long idMessage) {
         this.messageService.deleteMessage(idMessage);
         return new HttpResponse("Message delete successfully!");
     }
 
     @Operation(summary = "Получить чаты")
     @GetMapping("/chats")
-    public HttpResponse getSingleChats(){
+    public HttpResponse getSingleChats() {
         return new HttpResponse("Success get all chats", this.chatService.getAllChats());
     }
 

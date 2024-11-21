@@ -1,13 +1,8 @@
 "use client"
 import React, {FunctionComponent, useEffect} from 'react';
 import {List} from "@mui/material";
-import IncomeMessage from "@/app/messenger/@components/IncomeMessage";
-import UserMessage from "@/app/messenger/@components/UserMessage";
 import Box from "@mui/material/Box";
-import {useParams} from "next/navigation";
-import {_logout} from "@/app/@redux/slices/_jwtSlice";
 import useSelectedChat from "@/app/messenger/@hooks/useSelectedChat";
-import {NUMBER_BINARY_OPERATORS} from "@babel/types";
 import Loading from "@/app/@components/Loading";
 import useMessages from "@/app/messenger/@hooks/useMessages";
 
@@ -18,7 +13,8 @@ type Props = OwnProps;
 
 const ChatBlock: FunctionComponent<Props> = (props) => {
 
-    const {selectedChat, fetchMessagesChat} = useSelectedChat()
+    const {getSelectedChat, fetchMessagesChat} = useSelectedChat()
+    const selectedChat = getSelectedChat()
     const {mapMessages} = useMessages(selectedChat)
 
     useEffect(() => {

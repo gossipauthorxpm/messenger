@@ -5,6 +5,7 @@ import com.xpm.messanger.common.chat.IChat;
 import com.xpm.messanger.dto.chat.ShowChatDto;
 import com.xpm.messanger.dto.chat.ShowMessage;
 import com.xpm.messanger.entity.GroupChat;
+import com.xpm.messanger.entity.Message;
 import com.xpm.messanger.entity.SingleChat;
 import com.xpm.messanger.exceptions.ServiceException;
 import com.xpm.messanger.mapper.ChatMapper;
@@ -68,7 +69,7 @@ public class ChatService {
 
     public List<ShowMessage> getAllMessagesFromChat(Long chatId, ChatType chatType) {
         IChat chat = this.getLocalChat(chatId, chatType);
-
+        chat.setAllMessages(chat.getAllMessages().stream().sorted(Comparator.comparing(Message::getCreatedTime)).toList());
         return chat.getAllMessages().stream().map(message -> this.messageMapper.toShowMessage(message)).toList();
     }
 

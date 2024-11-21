@@ -9,7 +9,7 @@ export default function useAppNotifications() {
         options?: Omit<ShowNotificationOptions, "autoHideDuration">
     ) => {
         const messageOptions = {
-            autoHideDuration: 1500,
+            autoHideDuration: 500,
             ...options
         }
         show(message, messageOptions)

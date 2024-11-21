@@ -11,7 +11,13 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {_jwtSlice, _logout, _setJwt} from "@/app/@redux/slices/_jwtSlice";
 import {_deleteFriendRequest, _friendRequests, _setTakenFriendRequests} from "@/app/@redux/slices/_friendRequests";
-import {_chatSlice, _saveMessageChat, _setChats, _updateMessagesChat} from "@/app/@redux/slices/_chatsSlice";
+import {
+    _chatSlice,
+    _readMessage,
+    _saveMessageChat,
+    _setChats,
+    _updateMessagesChat
+} from "@/app/@redux/slices/_chatsSlice";
 
 
 export const _store = configureStore({
@@ -55,5 +61,6 @@ export const _reduxCallback = {
         setChats: _setChats,
         updateMessagesChat: _updateMessagesChat,
         saveMessageChat: _saveMessageChat,
+        readMessage: _readMessage,
     }
 }
