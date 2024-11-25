@@ -1,6 +1,7 @@
 import useSelectedChat from "@/app/messenger/@hooks/useSelectedChat";
 import {Chat} from "@/app/@redux/@types/chat/Chat";
 import useCurrentUser from "@/app/@hooks/useCurrentUser";
+import {useCallback, useMemo} from "react";
 
 export const useSelectedChatDetails = () => {
 
@@ -22,6 +23,6 @@ export const useSelectedChatDetails = () => {
         return "No name chat!"
     }
 
-    return {getNameChat}
+    return {getNameChat, currentUser, selectedChat}
 
 }

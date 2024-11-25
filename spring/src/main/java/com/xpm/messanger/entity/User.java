@@ -33,6 +33,8 @@ public class User implements UserDetails {
     private String surname;
     private String thirdname;
 
+    private Boolean isOnline;
+
     @Column(unique = true)
     private String phone;
 

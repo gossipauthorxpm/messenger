@@ -31,9 +31,14 @@ export const _chatSlice = createSlice({
         },
         _readMessage(state: WritableDraft<InitialState>, action: PayloadAction<Message>) {
             let messages: WritableDraft<Message>[] = []
-            if (state.chats) state.chats.forEach(chat => {
-                if (chat.messages) messages.push(...chat.messages)
-            })
+            if (state.chats) {
+                state.chats.forEach(chat => {
+                    if (chat.messages) {
+                        if (!chat.messages.find(message => message.id === action.payload.id))
+                            messages.push(...chat.messages)
+                    }
+                })
+            }
             messages.forEach(message => {
                 if (message.id === action.payload.id) message.read = true
             })

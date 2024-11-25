@@ -6,7 +6,9 @@ import com.xpm.messanger.dto.user.RegisterUserDto;
 import com.xpm.messanger.entity.User;
 import com.xpm.messanger.exceptions.ServiceException;
 import com.xpm.messanger.mapper.UserMapper;
+import com.xpm.messanger.repository.UserRepository;
 import com.xpm.messanger.security.jwt.JwtService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,11 +19,11 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class AuthService {
 
-    private final AuthenticationManager authenticationManager;
     private UserMapper userMapper;
     private UserService userService;
     private JwtService jwtService;
     private PasswordEncoder passwordEncoder;
+    private UserRepository userRepository;
 
 
     public void registerUser(RegisterUserDto userDto) {
@@ -30,8 +32,11 @@ public class AuthService {
         this.userService.saveUser(user);
     }
 
+    @Transactional
     public ShowToken authUser(AuthUserDto userDto) {
         User user = this.userService.findUserBy(userDto.getUsername());
+        user.setIsOnline(true);
+        userRepository.save(user);
         if (!passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
             throw new ServiceException("Invalid username or password!", HttpStatus.FORBIDDEN);
         }

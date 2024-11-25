@@ -35,6 +35,7 @@ public class ChatService {
      * @param chatId the chat id
      * @return {@link IChat}
      */
+    @Transactional
     public @NotNull IChat getAnotherChatById(Long chatId) {
         IChat chat = null;
 

@@ -1,17 +1,20 @@
 "use client"
 
-import {Stack, TextField, Typography} from "@mui/material";
-import DataArrayIcon from "@mui/icons-material/DataArray";
+import {Stack, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useAppSelector} from "@/app/@redux/_store";
 import useUpdate from "@/app/profile/user-data/@hooks/useUpdate";
 import Loading from "@/app/@components/Loading";
+
+
 
 export default function Page() {
 
     const currentUser = useAppSelector(data => data.user.user)
     const {register, onSubmit, handleSubmit} = useUpdate()
+
+    // if(isConnected()) sendName();
 
     if (!currentUser) return <Loading/>
     return <form onSubmit={handleSubmit(onSubmit)}>
@@ -28,5 +31,6 @@ export default function Page() {
             <TextField disabled label="Created time" variant="standard" defaultValue={currentUser.createdTime}/>
             <Button type={"submit"} variant={"outlined"}>Save</Button>
         </Stack>
+
     </form>
 }

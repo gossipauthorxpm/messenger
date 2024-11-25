@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="192.168.0.104" id="6bd6bb47-9afd-422f-a3c1-ea7ca6bf7752" port="22" customName="Bitrix" nameFormat="CUSTOM" username="bitrix" useOpenSSHConfig="true">
+        <option name="customName" value="Bitrix" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>

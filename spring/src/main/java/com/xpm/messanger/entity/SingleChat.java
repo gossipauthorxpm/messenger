@@ -18,7 +18,7 @@ public class SingleChat implements IChat {
     @SequenceGenerator(name = "global-id-sequence", sequenceName = "global_id_sequence", allocationSize = 1)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "chat_id")
     private List<Message> messages;
 

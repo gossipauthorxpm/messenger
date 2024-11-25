@@ -23,7 +23,7 @@ public class GroupChat implements IChat {
     private String name;
     @ManyToOne
     private User creator;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "group_chat_id")
     private List<Message> messages;
     @OneToMany
