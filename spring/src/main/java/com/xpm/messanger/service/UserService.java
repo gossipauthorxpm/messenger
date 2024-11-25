@@ -13,7 +13,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,6 +43,11 @@ public class UserService implements UserDetailsService {
             String currentUserLogin = authentication.getName();
             return this.findUserBy(currentUserLogin);
         }
+    }
+
+    public User getCurrentUser(UsernamePasswordAuthenticationToken authentication) {
+        String currentUserLogin = authentication.getName();
+        return this.findUserBy(currentUserLogin);
     }
 
     @Transactional

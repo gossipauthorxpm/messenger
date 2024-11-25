@@ -33,13 +33,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
-//        Enumeration<String> headers = request.getHeaderNames();
-        if (StringUtils.isEmpty(authHeader) || !authHeader.startsWith("Bearer ")) {
+        String query = request.getQueryString();
+
+        if ((StringUtils.isEmpty(authHeader) || !authHeader.startsWith("Bearer ")) && query == null) {
             filterChain.doFilter(request, response); // Пропустить фильтр, если нет токена
             return;
         }
-
-        final String jwt = authHeader.substring(7); // Извлечение JWT из заголовка
+        String jwt = null;
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            jwt = authHeader.substring(7);
+        } else if (query != null) {
+            jwt = query.substring(6);
+        }
+//        final String jwt = query == null ? authHeader.substring(7) : query.substring(6); // Извлечение JWT из заголовка
         final String login = jwtService.extractUserName(jwt);
 
         if (StringUtils.isNotEmpty(login) && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -52,7 +58,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
                 // Установка аутентификации в контекст безопасности
                 context.setAuthentication(authToken);
                 SecurityContextHolder.setContext(context);

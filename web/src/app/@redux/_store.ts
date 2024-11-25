@@ -18,6 +18,7 @@ import {
     _setChats,
     _updateMessagesChat
 } from "@/app/@redux/slices/_chatsSlice";
+import {_fetchSocket, _fetchSockets, _socketsSlice} from "@/app/@redux/slices/_sockets";
 
 
 export const _store = configureStore({
@@ -25,8 +26,12 @@ export const _store = configureStore({
         user: _userSlice.reducer,
         jwt: _jwtSlice.reducer,
         friendRequests: _friendRequests.reducer,
-        chats: _chatSlice.reducer
+        chats: _chatSlice.reducer,
+        sockets: _socketsSlice.reducer,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck: false,
+    })
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
@@ -62,5 +67,9 @@ export const _reduxCallback = {
         updateMessagesChat: _updateMessagesChat,
         saveMessageChat: _saveMessageChat,
         readMessage: _readMessage,
+    },
+    sockets: {
+        fetchSocket: _fetchSocket,
+        fetchSockets: _fetchSockets
     }
 }

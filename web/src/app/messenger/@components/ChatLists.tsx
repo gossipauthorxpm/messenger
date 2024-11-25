@@ -18,7 +18,6 @@ const ChatLists: FunctionComponent = () => {
     const router = useRouter();
     const {chats, mapChats} = useChats()
 
-
     if (!chats) return <Loading/>
 
     return (

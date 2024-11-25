@@ -8,6 +8,7 @@ import {_paths} from "@/app/paths";
 import Loading from "@/app/@components/Loading";
 import PeopleIcon from "@mui/icons-material/People";
 import DataArrayIcon from "@mui/icons-material/DataArray";
+import {client} from "@/app/socket";
 
 export default function ProfileLayout({
                                           children, // will be a page or nested layout

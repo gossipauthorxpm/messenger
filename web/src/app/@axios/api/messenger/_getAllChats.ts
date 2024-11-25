@@ -12,5 +12,6 @@ export default async function _getAllChats(callback: GetAllChatsCallback) {
         callback.reduxCallback(result.content)
     }).catch((error: AxiosError<HttpErrorResponse>) => {
         if (error.response) callback.alertCallback(error.response.data.statusMessage, {severity: "error"});
+        return error;
     })
 }

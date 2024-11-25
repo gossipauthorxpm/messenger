@@ -14,6 +14,10 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,11 +26,11 @@ import java.util.Optional;
 @AllArgsConstructor
 public class MessageService {
 
-    private MessageRepository messageRepository;
-    private ChatService chatService;
-    private UserService userService;
-    private ChatMapper chatMapper;
-    private MessageMapper messageMapper;
+    private final MessageRepository messageRepository;
+    private final ChatService chatService;
+    private final UserService userService;
+    private final ChatMapper chatMapper;
+    private final MessageMapper messageMapper;
 
     public @NotNull Message getMessageById(Long id) {
         Optional<Message> message = messageRepository.findById(id);
@@ -38,6 +42,18 @@ public class MessageService {
     public ShowMessage sendMessageToChat(Long idChat, CreateMessageDto messageDto) {
         IChat chat = this.chatService.getAnotherChatById(idChat);
         User currentUser = this.userService.getCurrentUser();
+        Message message = new Message()
+                .withSender(currentUser)
+                .withContent(messageDto.getContent());
+        Message sendedMessage = this.messageRepository.save(message);
+        chat.sendMessage(message);
+        this.chatService.updateChat(chat);
+        return this.messageMapper.toShowMessage(sendedMessage);
+    }
+
+    public ShowMessage sendMessageToChat(Long idChat, CreateMessageDto messageDto, UsernamePasswordAuthenticationToken authentication) {
+        IChat chat = this.chatService.getAnotherChatById(idChat);
+        User currentUser = this.userService.getCurrentUser(authentication);
         Message message = new Message()
                 .withSender(currentUser)
                 .withContent(messageDto.getContent());

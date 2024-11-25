@@ -1,16 +1,18 @@
 import {useRouter} from "next/navigation";
+import {Path} from "@/app/paths";
 
 type NavigateParams = {
     callback: () => void
-    path: string
+    path: Path
 }
 
 export default function useNavigate(params: NavigateParams) {
     const router = useRouter()
 
-
     const navigate = () => {
-        router.push(params.path)
+        if (typeof params.path.path === "string") {
+            router.push(params.path.path)
+        }
         params.callback()
     }
 

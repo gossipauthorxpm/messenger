@@ -1,5 +1,5 @@
 import {FriendRequest} from "@/app/@redux/@types/user/friends/FriendRequest";
-import {_reduxCallback, useAppDispatch, useAppSelector} from "@/app/@redux/_store";
+import {_reduxCallback, useAppDispatch} from "@/app/@redux/_store";
 import FriendRequestRow from "@/app/profile/friends/@components/FriendRequestRow";
 import {Typography} from "@mui/material";
 import useAppNotifications from "@/app/@hooks/useAppNotifications";
@@ -21,7 +21,7 @@ export default function useFriendRequests() {
     const {register, handleSubmit} = useForm<SendFriendRequest>()
 
     function fetchAllTakenFriendRequests() {
-         _api.requests.user.friends.getAllTakenFriendsRequests({
+        _api.requests.user.friends.getAllTakenFriendsRequests({
             alertCallback: show,
             reduxCallback: (friendRequests: FriendRequest[]) => {
                 dispatch(_reduxCallback.user.friends.setTakenFriendRequests(friendRequests))

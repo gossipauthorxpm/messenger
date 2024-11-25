@@ -2,6 +2,7 @@ package com.xpm.messanger.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -30,7 +31,12 @@ public class JwtService implements IJwtService {
 
     @Override
     public String extractUserName(String token) {
-        return extractClaim(token, Claims::getSubject);
+        try {
+            return extractClaim(token, Claims::getSubject);
+        } catch (MalformedJwtException exception) {
+            return null;
+        }
+
     }
 
     @Override
@@ -39,7 +45,7 @@ public class JwtService implements IJwtService {
     }
 
     @Override
-    public boolean isTokenValid(String token, UserDetails userDetails)  {
+    public boolean isTokenValid(String token, UserDetails userDetails) {
         if (token == null || token.isEmpty() || this.isRefreshToken(token)) {
             return false;
         }

@@ -21,7 +21,7 @@ export default function AccountMenu(props: Props) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
-    const {newFriendsRequests} = useMenuBadgeContent()
+    const {newFriendsRequests, fetchNotReadMessages} = useMenuBadgeContent()
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -32,8 +32,8 @@ export default function AccountMenu(props: Props) {
 
     const logout = useLogout({callback: handleClose})
 
-    const navigateProfile = useNavigate({path: _paths.root.profile.userData.vars.path, callback: handleClose})
-    const navigateMessenger = useNavigate({path: _paths.root.messenger.vars.path, callback: handleClose})
+    const navigateProfile = useNavigate({path: _paths.root.profile.userData.vars, callback: handleClose})
+    const navigateMessenger = useNavigate({path: _paths.root.messenger.vars, callback: handleClose})
 
     const avatar = () => {
         if (props.user.name && props.user.surname) {
@@ -99,7 +99,7 @@ export default function AccountMenu(props: Props) {
             </MenuItem>
             <MenuItem onClick={navigateMessenger}>
                 <ListItemIcon>
-                    <Badge badgeContent={4} color="primary">
+                    <Badge badgeContent={fetchNotReadMessages().length} color="primary">
                         <MailIcon color="action"/>
                     </Badge>
                 </ListItemIcon>
