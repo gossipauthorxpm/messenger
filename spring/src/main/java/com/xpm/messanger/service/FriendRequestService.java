@@ -6,7 +6,9 @@ import com.xpm.messanger.entity.FriendRequest;
 import com.xpm.messanger.entity.User;
 import com.xpm.messanger.exceptions.ServiceException;
 import com.xpm.messanger.mapper.FriendsRequestMapper;
+import com.xpm.messanger.mapper.UserMapper;
 import com.xpm.messanger.repository.FriendRequestRepository;
+import jakarta.jws.soap.SOAPBinding;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ public class FriendRequestService {
     private FriendRequestRepository friendRequestRepository;
     private UserService userService;
     private FriendsRequestMapper friendsRequestMapper;
+    private UserMapper userMapper;
 
     public List<ShowFriendRequest> getAllTakenRequests() {
         User currentUser = userService.getCurrentUser();
@@ -71,8 +74,20 @@ public class FriendRequestService {
         this.friendRequestRepository.deleteById(idFriendRequest);
     }
 
-    public List<ShowUserDto> getAllFriendsForUser() {
+    public List<ShowUserDto> getAllShowFriendsForUser() {
         User user = userService.getCurrentUser();
+        return searchFriendsForUser(user).stream().map(this.userMapper::userToShowUser).toList();
+    }
+
+    public List<User> getAllFriendsForUser(User user) {
+        return searchFriendsForUser (user);
+    }
+
+    /**
+    * Receives all friends of the transferred user for further processing. If data is sent through the controller,
+    * you need to process them using a mapper {@link com.xpm.messanger.mapper.UserMapper}
+    */
+    public  List<User> searchFriendsForUser(User user) {
         Set<FriendRequest> friendRequestList = new HashSet<>();
 
         List<FriendRequest> friendRequestsBySender = this.friendRequestRepository.findFriendRequestsBySender(user);
@@ -89,13 +104,11 @@ public class FriendRequestService {
             }
         }
 
-        List<ShowFriendRequest> showFriendRequests = friendRequestList.stream().map(this.friendsRequestMapper::toShowFriendRequest).toList();
-        return showFriendRequests.stream().map(showFriendRequest -> {
+        return friendRequestList.stream().map(showFriendRequest -> {
             if (showFriendRequest.getRecipient().getLogin().equals(user.getLogin()))
                 return showFriendRequest.getSender();
             else return showFriendRequest.getRecipient();
         }).toList();
-
     }
 
 }

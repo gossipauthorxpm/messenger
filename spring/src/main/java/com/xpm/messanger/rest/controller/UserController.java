@@ -1,4 +1,4 @@
-package com.xpm.messanger.controller;
+package com.xpm.messanger.rest.controller;
 
 import com.xpm.messanger.dto.user.UpdateUserDto;
 import com.xpm.messanger.http.HttpResponse;

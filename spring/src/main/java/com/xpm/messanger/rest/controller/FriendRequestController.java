@@ -1,4 +1,4 @@
-package com.xpm.messanger.controller;
+package com.xpm.messanger.rest.controller;
 
 import com.xpm.messanger.http.HttpResponse;
 import com.xpm.messanger.service.FriendRequestService;
@@ -61,7 +61,7 @@ public class FriendRequestController {
     @Operation(summary = "Получить всех друзей пользователя")
     @GetMapping
     public HttpResponse getAllFriendsCurrentUser() {
-        return new HttpResponse("Successful friends retrieval!", this.friendRequestService.getAllFriendsForUser());
+        return new HttpResponse("Successful friends retrieval!", this.friendRequestService.getAllShowFriendsForUser());
     }
 
 }

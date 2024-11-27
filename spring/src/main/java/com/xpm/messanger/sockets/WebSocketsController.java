@@ -1,27 +1,21 @@
-package com.xpm.messanger.controller;
+package com.xpm.messanger.sockets;
 
-import com.xpm.messanger.dto.chat.CreateMessageDto;
 import com.xpm.messanger.dto.chat.ShowMessage;
 import com.xpm.messanger.dto.chat.SocketCreateMessage;
-import com.xpm.messanger.entity.User;
 import com.xpm.messanger.service.chat.MessageService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @AllArgsConstructor
 @SecurityRequirement(name = "Authorization")
-public class WebSocketsChatController {
+public class WebSocketsController {
 
     private final MessageService messageService;
     private final SimpMessagingTemplate simpMessagingTemplate;

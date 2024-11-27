@@ -1,4 +1,4 @@
-package com.xpm.messanger.controller;
+package com.xpm.messanger.rest.controller;
 
 import com.xpm.messanger.common.chat.ChatType;
 import com.xpm.messanger.http.HttpResponse;
@@ -7,7 +7,6 @@ import com.xpm.messanger.service.chat.GroupChatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.transaction.Transactional;
 import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;

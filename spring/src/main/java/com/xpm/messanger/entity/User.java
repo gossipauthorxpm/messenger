@@ -1,9 +1,7 @@
 package com.xpm.messanger.entity;
 
-import com.xpm.messanger.security.Role;
+import com.xpm.messanger.common.user.UserActive;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,7 +30,8 @@ public class User implements UserDetails {
     private String name;
     private String surname;
     private String thirdname;
-
+    /** Current user action. Use, for example, to display "Writing a message" */
+    private UserActive active;
     private Boolean isOnline;
 
     @Column(unique = true)

@@ -1,4 +1,4 @@
-package com.xpm.messanger.controller;
+package com.xpm.messanger.rest.controller;
 
 import com.xpm.messanger.common.chat.ChatType;
 import com.xpm.messanger.dto.chat.CreateMessageDto;

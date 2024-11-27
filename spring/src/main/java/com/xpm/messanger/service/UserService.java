@@ -106,5 +106,10 @@ public class UserService implements UserDetailsService {
         this.userRepository.save(userUpdated);
     }
 
+    @Transactional
+    public void updateUserData(User user) {
+        userRepository.save(user);
+    }
+
 
 }
