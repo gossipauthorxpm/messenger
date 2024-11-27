@@ -1,31 +1,33 @@
 import {Client} from "@stomp/stompjs";
 import {_cookies} from "@/app/@axios/_cookies";
-import {Message} from "@/app/@redux/@types/chat/Message";
-import {_reduxCallback, useAppDispatch} from "@/app/@redux/_store";
-import {useDispatch} from "react-redux";
-import useCurrentUser from "@/app/@hooks/useCurrentUser";
-import {User} from "@/app/@redux/@types/user/User";
+import {_reduxCallback, useAppDispatch, useAppSelector} from "@/app/@redux/_store";
+import {User, UserActive} from "@/app/@redux/@types/user/User";
 import {useCallback} from "react";
 
 
-const client = new Client({
+const clientSocket = new Client({
     debug: function (str) {
-        console.log(str);
+        // console.log(str);
     },
     beforeConnect: () => {
         const token = _cookies.get("authToken");
-        client.configure({brokerURL: `ws://127.0.0.1:8080/api/socket?token=${token}`})
+        clientSocket.configure({brokerURL: `ws://127.0.0.1:8080/api/socket?token=${token}`})
     }
 });
 
-export default function useUserSocket(currentUser: User | null) {
+export function closeUserClientSocket() {
+    clientSocket.deactivate({force: true});
+}
 
+export default function useUserSocket() {
+
+    const currentUser: User | null = useAppSelector(data => data.user.user)
     const dispatch = useAppDispatch();
 
     const setOnCallback = useCallback(() => {
-        client.onConnect = (frame) => {
+        clientSocket.onConnect = (frame) => {
             console.log('Connected: ' + frame);
-            client.subscribe(`/topic/friends/${currentUser?.login}`, (greeting) => {
+            clientSocket.subscribe(`/topic/friends/${currentUser?.login}`, (greeting) => {
                 const message: User[] = JSON.parse(greeting.body);
                 dispatch(_reduxCallback.user.friends.setUserFriends(message))
                 // if (chat) dispatch(_reduxCallback.chats.saveMessageChat({message: message, chat: chat}))
@@ -35,9 +37,21 @@ export default function useUserSocket(currentUser: User | null) {
 
 
     const connectSocket = () => {
-        if (!client.active) client.activate()
+        if (!clientSocket.active && currentUser) {
+            setOnCallback()
+            clientSocket.activate()
+        }
     }
 
-    return {connectSocket, setOnCallback}
+    const sendMessageSocket = (userActive: UserActive) => {
+        clientSocket.publish({
+            destination: "/api/socket/sendUserActive",
+            body: JSON.stringify({
+                userActive: userActive,
+            }),
+        });
+    }
+
+    return {connectSocket, sendMessageSocket}
 
 }

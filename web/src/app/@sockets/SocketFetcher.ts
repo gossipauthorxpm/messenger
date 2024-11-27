@@ -12,7 +12,7 @@ export function fetchChatSocket(chat: Chat, dispatch: AppDispatch): ChatSocket {
 
     const client = new Client({
         debug: function (str) {
-            console.log(str);
+            // console.log(str);
         },
         beforeConnect: () => {
             const token = _cookies.get("authToken");

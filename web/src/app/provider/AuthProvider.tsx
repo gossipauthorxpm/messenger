@@ -16,11 +16,10 @@ export default function AuthProvider(props: Props) {
     const currentUser: User | null = useAppSelector(data => data.user.user)
     const currentJwt: Jwt | null = useAppSelector(data => data.jwt.jwt)
     const {getUserData} = getAuth()
-    const {connectSocket, setOnCallback} = useUserSocket(currentUser)
+    const {connectSocket} = useUserSocket()
 
     useEffect(() => {
         getUserData()
-        setOnCallback()
         connectSocket()
     }, [currentJwt, currentUser])
 

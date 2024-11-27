@@ -1,0 +1,20 @@
+spring:
+
+  application:
+    name: logger
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/messenger
+    username: xpm
+    password: 1896748249
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: logger
+
+server:
+  port: 8081

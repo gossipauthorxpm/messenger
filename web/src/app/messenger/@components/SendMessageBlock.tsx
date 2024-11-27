@@ -3,10 +3,8 @@ import React, {FunctionComponent, useEffect} from 'react';
 import {FilledInput, FormControl, InputLabel, Stack} from "@mui/material";
 import Button from "@mui/material/Button";
 import useSendMessage from "@/app/messenger/@hooks/useSendMessage";
-import useJwt from "@/app/auth/hooks/useJwt";
-import {useAppSelector} from "@/app/@redux/_store";
-import useSelectedChat from "@/app/messenger/@hooks/useSelectedChat";
-import useSocketChat from "@/app/messenger/@sockets/useSocketChat";
+import useUserSocket from "@/app/@sockets/useUserSocket";
+import {UserActive} from "@/app/@redux/@types/user/User";
 
 interface OwnProps {
 }
@@ -17,7 +15,7 @@ const SendMessageBlock: FunctionComponent<Props> = (props) => {
 
 
     const {sendMessage, register, handleSubmit, runSocket, socket} = useSendMessage()
-
+    const {sendMessageSocket} = useUserSocket();
 
     useEffect(() => {
         runSocket()
@@ -32,7 +30,14 @@ const SendMessageBlock: FunctionComponent<Props> = (props) => {
                 <Stack direction={"row"} spacing={4} alignItems={"center"} width={"100%"}>
                     <Stack width="100%" alignItems={"center"}>
                         <InputLabel>Send message</InputLabel>
-                        <FilledInput id="filled-adornment-amount" sx={{
+                        <FilledInput
+                            onMouseOver={() => {
+                                sendMessageSocket(UserActive.WRITING)
+                            }}
+                            onMouseOut={() => {
+                                sendMessageSocket(UserActive.WAITING)
+                            }}
+                            id="filled-adornment-amount" sx={{
                             width: "100%"
                         }} {...register("message")}/>
                     </Stack>

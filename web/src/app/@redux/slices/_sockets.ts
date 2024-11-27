@@ -24,7 +24,13 @@ export const _socketsSlice = createSlice({
                 return fetchChatSocket(chat, action.payload.dispatch);
             })
         },
+        _closeSockets: (state: WritableDraft<InitialState>) => {
+            state.sockets.forEach(socket => {
+                socket.socket.deactivate({force: true})
+            })
+            state.sockets = []
+        }
     },
 })
 
-export const {_fetchSocket, _fetchSockets} = _socketsSlice.actions
+export const {_fetchSocket, _fetchSockets, _closeSockets} = _socketsSlice.actions

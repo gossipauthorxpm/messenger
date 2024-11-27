@@ -18,7 +18,7 @@ import {
     _setChats,
     _updateMessagesChat
 } from "@/app/@redux/slices/_chatsSlice";
-import {_fetchSocket, _fetchSockets, _socketsSlice} from "@/app/@redux/slices/_sockets";
+import {_closeSockets, _fetchSocket, _fetchSockets, _socketsSlice} from "@/app/@redux/slices/_sockets";
 
 
 export const _store = configureStore({
@@ -70,6 +70,7 @@ export const _reduxCallback = {
     },
     sockets: {
         fetchSocket: _fetchSocket,
-        fetchSockets: _fetchSockets
+        fetchSockets: _fetchSockets,
+        closeSockets: _closeSockets,
     }
 }
