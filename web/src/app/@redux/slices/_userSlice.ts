@@ -21,6 +21,7 @@ export const _userSlice = createSlice({
         },
         _updateUser: (state: WritableDraft<InitialState>, action: PayloadAction<UpdateUser>) => {
             if (state.user) state.user = {
+                isOnline: state.user.isOnline,
                 login: state.user.login,
                 email: state.user.email,
                 createdTime: state.user.createdTime,

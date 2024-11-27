@@ -10,7 +10,7 @@ import useCurrentUser from "@/app/@hooks/useCurrentUser";
 import fetchSingleChatName from "@/app/messenger/@hooks/fetchSingleChatName";
 import {useSelectedChatDetails} from "@/app/messenger/@hooks/useSelectedChatDetails";
 import {HttpResponse} from "@/app/@axios/@types/http/HttpResponse";
-import {fetchChatSocket} from "@/app/@redux/@types/sockets/SocketFetcher";
+import {fetchChatSocket} from "@/app/@sockets/SocketFetcher";
 import {ChatSocket} from "@/app/@redux/@types/sockets/ChatSocket";
 
 export default function useChats() {

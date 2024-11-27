@@ -6,7 +6,7 @@ import useSendMessage from "@/app/messenger/@hooks/useSendMessage";
 import useJwt from "@/app/auth/hooks/useJwt";
 import {useAppSelector} from "@/app/@redux/_store";
 import useSelectedChat from "@/app/messenger/@hooks/useSelectedChat";
-import useSocketChat from "@/app/messenger/@hooks/useSocketChat";
+import useSocketChat from "@/app/messenger/@sockets/useSocketChat";
 
 interface OwnProps {
 }

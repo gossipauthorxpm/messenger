@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import useSelectedChat from "@/app/messenger/@hooks/useSelectedChat";
 import Loading from "@/app/@components/Loading";
 import useMessages from "@/app/messenger/@hooks/useMessages";
-import useSocketChat from "@/app/messenger/@hooks/useSocketChat";
+import useSocketChat from "@/app/messenger/@sockets/useSocketChat";
 
 interface OwnProps {
 }
@@ -19,15 +19,14 @@ const ChatBlock: FunctionComponent<Props> = (props) => {
     const {mapMessages} = useMessages(selectedChat)
 
 
-
     useEffect(() => {
-        if(selectedChat) {
+        if (selectedChat) {
             fetchMessagesChat(selectedChat)
         }
         ref.current?.scroll(0, 10000000)
     }, [selectedChat]);
 
-    if(!selectedChat) return <Loading/>
+    if (!selectedChat) return <Loading/>
 
     return (<Box ref={ref} sx={{
         overflowY: "scroll",

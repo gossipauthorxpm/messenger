@@ -2,6 +2,7 @@ package com.xpm.messanger.multithreading;
 
 import com.xpm.messanger.common.multithreading.IThreadExecutor;
 import com.xpm.messanger.entity.User;
+import com.xpm.messanger.mapper.UserMapper;
 import com.xpm.messanger.multithreading.threads.OnlineSocketThread;
 import com.xpm.messanger.multithreading.types.SocketRecord;
 import com.xpm.messanger.service.FriendRequestService;
@@ -28,10 +29,11 @@ public class SocketThreadExecutor implements IThreadExecutor {
 
     private final FriendRequestService friendRequestService;
     private final SimpMessagingTemplate messagingTemplate;
+    private final UserMapper userMapper;
 
     public void createAndRun(User user) {
         if (!this.checkUserInThreads(user)) {
-            OnlineSocketThread thread = new OnlineSocketThread(this.friendRequestService, this.messagingTemplate, user);
+            OnlineSocketThread thread = new OnlineSocketThread(this.friendRequestService, this.messagingTemplate, user, this.userMapper);
             SocketRecord socketRecord = new SocketRecord(thread, user);
             socketRecord.thread().start();
             this.records.add(socketRecord);

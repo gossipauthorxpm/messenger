@@ -6,6 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
 import {User} from "@/app/@redux/@types/user/User";
 import useDeleteFriend from "@/app/profile/friends/@hooks/useDeleteFriend";
+import OnlineUser from "@/app/@components/OnlineUser";
 
 export default function FriendRow(props: { user: User }) {
 
@@ -23,13 +24,14 @@ export default function FriendRow(props: { user: User }) {
                 <Avatar>A</Avatar>
                 <Typography>{user.name}</Typography>
                 <Typography>{user.surname}</Typography>
+                <OnlineUser user={user}/>
             </Stack>
             <Stack direction={"row"} spacing={2} alignItems={"center"}>
                 <Tooltip title={"Send message"}>
                     <MessageIcon color={"secondary"} cursor={"pointer"}/>
                 </Tooltip>
                 <Tooltip title={"Delete friend"}>
-                    <DeleteIcon onClick={handleDeleteFriend} color={"error"} cursor={"pointer"} />
+                    <DeleteIcon onClick={handleDeleteFriend} color={"error"} cursor={"pointer"}/>
                 </Tooltip>
             </Stack>
         </Stack>

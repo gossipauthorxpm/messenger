@@ -5,6 +5,7 @@ export type User = {
     surname: string
     thirdname: string
     phone: string
+    isOnline: boolean
     createdTime: string
     friends?: User[]
 }
