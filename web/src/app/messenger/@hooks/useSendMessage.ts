@@ -4,7 +4,7 @@ import {_reduxCallback, useAppDispatch} from "@/app/@redux/_store";
 import useAppNotifications from "@/app/@hooks/useAppNotifications";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {RegisterRequestType} from "@/app/@axios/@types/auth/RegisterRequestType";
-import useSocketChat from "@/app/messenger/@hooks/useSocketChat";
+import useSocketChat from "@/app/messenger/@sockets/useSocketChat";
 
 type MessageForm = {
     message: string;

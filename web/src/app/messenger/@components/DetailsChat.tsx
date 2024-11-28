@@ -16,7 +16,7 @@ const DetailsChat: FunctionComponent<Props> = (props) => {
     return (<Stack direction={"row"} justifyContent={"space-between"} m={2}>
         <Stack direction={"row"} spacing={2} alignItems={"center"}>
             <Avatar>N</Avatar>
-            <Typography>{getNameChat()}</Typography>
+            {getNameChat()}
         </Stack>
         <Button variant={"outlined"}>Details</Button>
     </Stack>);

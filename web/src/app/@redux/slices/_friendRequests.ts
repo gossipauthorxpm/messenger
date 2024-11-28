@@ -5,22 +5,20 @@ import {UpdateUser} from "@/app/@redux/@types/user/UpdateUser";
 import {FriendRequest} from "@/app/@redux/@types/user/friends/FriendRequest";
 
 type InitialState = {
-    friendRequests: FriendRequest[] | null
+    friendRequests: FriendRequest[]
 }
 
 export const _friendRequests = createSlice({
     name: 'friendRequests',
     initialState: {
-        friendRequests: null
+        friendRequests: []
     } as InitialState,
     reducers: {
         _setTakenFriendRequests: (state: WritableDraft<InitialState>, action: PayloadAction<FriendRequest[]>) => {
             state.friendRequests = action.payload
         },
         _deleteFriendRequest(state: WritableDraft<InitialState>, action: PayloadAction<FriendRequest>) {
-            if (state.friendRequests) {
-                state.friendRequests = state.friendRequests.filter((friendRequest: FriendRequest) => friendRequest.id !== action.payload.id)
-            }
+            state.friendRequests = state.friendRequests.filter((friendRequest: FriendRequest) => friendRequest.id !== action.payload.id)
         }
     },
 })

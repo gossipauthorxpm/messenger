@@ -11,6 +11,7 @@ export const useMessage = (message: Message) => {
     const currentUser = useCurrentUser();
 
     const readMessage = () => {
+        // Переделать на сокетах))
         if (currentUser && currentUser.login === message.sender.login) return
         if (!message.read) _api.requests.messenger.chat.readMessage(message, {
             alertCallback: show,
