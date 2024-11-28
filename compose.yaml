@@ -7,6 +7,8 @@ services:
       - 'POSTGRES_USER=xpm'
     ports:
       - '5432:5432'
+    volumes:
+      - ./.database:/var/lib/postgresql
   zookeeper:
     image: wurstmeister/zookeeper
     container_name: zookeeper
