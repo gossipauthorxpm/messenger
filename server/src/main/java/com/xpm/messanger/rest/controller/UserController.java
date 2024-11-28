@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Пользователь", description = "Работа с учетными данными пользователя")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Operation(summary = "Получить данные текущего пользователя")
     @GetMapping

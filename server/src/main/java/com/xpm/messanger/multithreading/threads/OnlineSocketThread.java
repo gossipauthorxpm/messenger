@@ -26,7 +26,7 @@ public class OnlineSocketThread extends Thread {
         while (this.running) {
             try {
                 sleep(1000);
-                log.info("The data of the user {} friends is transferred to the web socket topic", this.user.getLogin());
+//                log.info("The data of the user {} friends is transferred to the web socket topic", this.user.getLogin());
                 List<User> friendsUser = this.friendRequestService.getAllFriendsForUser(this.user);
                 this.messagingTemplate.convertAndSend(String.format("/topic/friends/%s", this.user.getLogin()),
                         friendsUser.stream().map(this.userMapper::userToShowUser).toList());

@@ -1,5 +1,20 @@
 spring:
 
+  kafka:
+    bootstrap-servers: localhost:9093
+    consumer:
+      group-id: main
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: '*'
+    listener:
+      concurrency: 3
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
   config:
     import: optional:file:spring/.env[.properties]
   application:
@@ -33,6 +48,7 @@ springdoc:
 token:
   signing:
     key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
+
 
 cors:
   #name: http://localhost:8000
