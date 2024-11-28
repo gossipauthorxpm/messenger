@@ -3,6 +3,7 @@ import {_cookies} from "@/app/@axios/_cookies";
 import {_reduxCallback, useAppDispatch, useAppSelector} from "@/app/@redux/_store";
 import {User, UserActive} from "@/app/@redux/@types/user/User";
 import {useCallback} from "react";
+import {Message} from "@/app/@redux/@types/chat/Message";
 
 
 const clientSocket = new Client({

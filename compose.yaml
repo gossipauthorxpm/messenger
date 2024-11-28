@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   postgres:
     image: 'postgres:latest'
@@ -9,6 +11,7 @@ services:
       - '5432:5432'
     volumes:
       - ./.database:/var/lib/postgresql
+
   zookeeper:
     image: wurstmeister/zookeeper
     container_name: zookeeper
@@ -16,6 +19,7 @@ services:
       - "2181:2181"
     networks:
       - kafka-net
+
   kafka:
     depends_on:
       - zookeeper
@@ -23,13 +27,13 @@ services:
     container_name: kafka
     ports:
       - "9092:9092"
+      - "9093:9093"
     environment:
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9092,OUTSIDE://localhost:9093
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9092, OUTSIDE://localhost:9093
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_LISTENERS: INSIDE://0.0.0.0:9092,OUTSIDE://0.0.0.0:9093
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_CREATE_TOPICS: "baeldung:1:1"
     networks:
       - kafka-net
 
