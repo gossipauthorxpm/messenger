@@ -10,7 +10,6 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>logger</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>logger</name>
     <description>logger</description>
     <url/>
@@ -98,7 +97,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.baeldung.spring.kafka.KafkaApplication</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>

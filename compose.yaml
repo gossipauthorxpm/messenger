@@ -1,12 +1,42 @@
 version: '3.8'
 
 services:
+
+  spring_main_service:
+    container_name: spring_main_service
+    depends_on:
+      - postgres
+      - spring_logger_service
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    networks:
+      - postgres
+      - kafka-net
+    ports:
+      - "8080:8080"
+
+  spring_logger_service:
+    container_name: spring_logger_service
+    depends_on:
+      - postgres
+      - kafka
+    build:
+      context: .
+      dockerfile: logger/Dockerfile
+    networks:
+      - postgres
+      - kafka-net
+
   postgres:
     image: 'postgres:latest'
+    container_name: postgres
     environment:
       - 'POSTGRES_DB=messenger'
       - 'POSTGRES_PASSWORD=1896748249'
       - 'POSTGRES_USER=xpm'
+    networks:
+      - postgres
     ports:
       - '5432:5432'
     volumes:
@@ -39,4 +69,6 @@ services:
 
 networks:
   kafka-net:
+    driver: bridge
+  postgres:
     driver: bridge

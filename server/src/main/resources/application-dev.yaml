@@ -1,5 +1,9 @@
 spring:
 
+  sql:
+    init:
+      mode: always
+
   kafka:
     bootstrap-servers: localhost:9093
     consumer:
@@ -51,5 +55,5 @@ token:
 
 
 cors:
-  #name: http://localhost:8000
+  #  name: http://localhost:8000
   name: ${CORS_SERVER}

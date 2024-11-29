@@ -46,7 +46,7 @@ public class SocketThreadExecutor implements IThreadExecutor {
      *
      * @param user {@link User}
      */
-    public void deleteForUser(User user) {
+    public synchronized void deleteForUser(User user) {
         AtomicReference<Byte> flag = new AtomicReference<>((byte) 0);
         this.records.forEach(thread -> {
             if (Objects.equals(thread.user().getId(), user.getId())) {
@@ -55,7 +55,7 @@ public class SocketThreadExecutor implements IThreadExecutor {
             }
         });
         if (flag.get() == 0) {
-            throw new RuntimeException("Thread is already running. Not effect delete thread");
+            return;
         }
         this.records = this.records.stream()
                 .filter(thread -> !Objects.equals(thread.user().getId(), user.getId()))

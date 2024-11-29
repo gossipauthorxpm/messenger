@@ -1,7 +1,8 @@
 spring:
 
   application:
-    name: logger
+    name: server
 
   profiles:
     active: dev
+
